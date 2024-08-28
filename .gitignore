@@ -1,5 +1,6 @@
 *
 !.gitignore
+!LICENSE.md
 !provision.sh
 !README.md
 !Vagrantfile
