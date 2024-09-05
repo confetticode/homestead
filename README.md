@@ -1,57 +1,60 @@
-Homestead-Like Setup
+# Homestead-Like Setup
 
-> Because I face a lot of errors when running Laravel Homestead on my Windows machine and Laravel Homestead seems not to be priority maintained anymore, I create a simple version of Homestead-Like Setup by myself.
+Because I face a lot of errors when running Laravel Homestead on my Windows machine,
+and it seems not to be priority maintained anymore, I create a simple version of Laravel Homestead by myself.
 
 > I just tested on Windows.
 
 ## Requirements
 
-Your host machine must have Virtual Box and Vagrant installed.
+The host must have Virtual Box and Vagrant installed.
 
 ## Installation
 
-On your host machine.
+On the host, run these commands.
 
 ```bash
+# Clone the "confetticode/homestead" repository into the ~/Homestead directory.
 git clone git@github.com:confetticode/homestead.git ~/Homestead
 
+# Go to the ~/Homestead directory.
 cd ~/Homestead
 
-# Start building the Homestead machine.
+# Start building the Homestead.
 vagrant up 
 
 # Wait until the machine is ready. Then, SSH into it.
 vagrant ssh
 ```
 
-On Homestead machine.
+On the Homestead, run these commands.
 ```bash
-# Login as root.
-vagrant@homestead:~$ sudo su
+# Start a root login session.
+sudo su
 
-# Go to "/vagrant" directory.
-root@homestead:/home/vagrant# cd /vagrant
+# Go to the "/vagrant" directory.
+cd /vagrant
 
 # Run the provision.sh script.
-root@homestead:/vagrant# ./provision.sh
+./scripts/provision.sh
 ```
 
-After installation, your Homestead machine runs Ubuntu 22.04 and contains
+After installation, the Homestead runs Ubuntu 22.04 LTS and a LEMP stack including:
 - Nginx
 - PHP 8.3
 - MySQL 8.0 (username: root, password: secret)
 
 ## Usage
 
-On Homestead machine, create a new Laravel application
+On the Homestead, create a new Laravel application.
 
 ```bash
-vagrant@homestead:~$ cd /vagrant
+cd /vagrant
 
 composer create-project --prefer-dist laravel/laravel laravel-demo
 ```
 
-On Homestead machine, create `/etc/nginx/sites-available/laravel-demo.local.conf` file with the following content.
+On the Homestead, create the `/etc/nginx/sites-available/laravel-demo.local.conf` file with the following content.
 
 ```plain
 server {
@@ -83,20 +86,20 @@ server {
 }
 ```
 
-On Homestead machine, create a symbolic link for `/etc/nginx/sites-available/laravel-demo.local.conf`.
+On the Homestead, create a symbolic link for `/etc/nginx/sites-available/laravel-demo.local.conf`.
 
 ```bash
 sudo ln -s /etc/nginx/sites-available/laravel-demo.local.conf /etc/nginx/sites-enabled/laravel-demo.local.conf
 ```
 
-On Homestead machine, restart Nginx and PHP.
+On the Homestead, restart Nginx and PHP 8.3.
 
 ```bash
 sudo systemctl restart nginx
 sudo systemctl restart php8.3-fpm
 ```
 
-On your host machine, modify the `hosts` file to contain this line.
+On the host, modify the `hosts` file to contain this line.
 
 ```plain
 192.168.33.10 laravel-demo.local
