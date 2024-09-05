@@ -7,20 +7,21 @@ add-apt-repository -y ppa:ondrej/php
 
 apt-get update
 
-apt-get install -y software-properties-common curl git unzip zip supervisor \
-  nginx \
-  php8.3-fpm \
+apt-get install -y software-properties-common curl git unzip zip supervisor nginx \
   php8.3-cli \
-  php8.3-mcrypt \
+  php8.3-curl \
+  php8.3-fpm \
   php8.3-gd \
+  php8.3-gmp \
+  php8.3-imap \
+  php8.3-intl \
+  php8.3-mbstring \
+  php8.3-mcrypt \
   php8.3-mysql \
   php8.3-pgsql \
-  php8.3-imap \
-  php-memcached \
-  php8.3-mbstring \
+  php8.3-sqlite3 \
   php8.3-xml \
-  php8.3-curl \
-  php8.3-sqlite3
+  php-memcached
 
 sed -i "s/www-data/vagrant/g" /etc/nginx/nginx.conf;
 
