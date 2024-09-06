@@ -21,7 +21,7 @@ git clone git@github.com:confetticode/homestead.git ~/Homestead
 cd ~/Homestead
 
 # Start building the Homestead.
-vagrant up 
+vagrant up
 
 # Wait until the machine is ready. Then, SSH into it.
 vagrant ssh
@@ -36,10 +36,10 @@ sudo su
 cd /vagrant
 
 # Run the provision.sh script.
-./scripts/provision.sh
+./provision.sh
 ```
 
-After installation, the Homestead runs Ubuntu 22.04 LTS and a LEMP stack including:
+After installation, the Homestead runs Ubuntu 22.04 LTS with a LEMP stack including:
 - Nginx
 - PHP 8.3
 - MySQL 8.0 (username: root, password: secret)
@@ -49,47 +49,17 @@ After installation, the Homestead runs Ubuntu 22.04 LTS and a LEMP stack includi
 On the Homestead, create a new Laravel application.
 
 ```bash
-cd /vagrant
+cd /vagrant/src
 
 composer create-project --prefer-dist laravel/laravel laravel-demo
 ```
 
-On the Homestead, create the `/etc/nginx/sites-available/laravel-demo.local.conf` file with the following content.
-
-```plain
-server {
-    root /vagrant/laravel-demo/public;
-
-    index index.html index.htm index.php;
-
-    server_name laravel-demo.local;
-
-    charset utf-8;
-
-    location = /favicon.ico { log_not_found off; access_log off; }
-    location = /robots.txt  { log_not_found off; access_log off; }
-
-    location / {
-        try_files \$uri \$uri/ /index.php$is_args$args;
-    }
-
-    location ~ \.php$ {
-        include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php8.3-fpm.sock;
-    }
-
-    error_page 404 /index.php;
-
-    location ~ /\.ht {
-        deny all;
-    }
-}
-```
-
-On the Homestead, create a symbolic link for `/etc/nginx/sites-available/laravel-demo.local.conf`.
+On the Homestead,
+create the `/etc/nginx/sites-available/laravel-demo.conf` file with the content similar to [etc/laravel-demo.conf](./etc/laravel-demo.conf).
+Then, create a symbolic link for `/etc/nginx/sites-available/laravel-demo.conf`.
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/laravel-demo.local.conf /etc/nginx/sites-enabled/laravel-demo.local.conf
+sudo ln -s /etc/nginx/sites-available/laravel-demo.conf /etc/nginx/sites-enabled/laravel-demo.conf
 ```
 
 On the Homestead, restart Nginx and PHP 8.3.
@@ -107,4 +77,4 @@ On the host, modify the `hosts` file to contain this line.
 
 Visit http://laravel-demo.local to verify if it works.
 
-Finally, open `~/Homestead/laravel-demo` with your favourite IDE and start coding.
+Finally, open `~/Homestead/src/laravel-demo` with your favorite IDE and start coding.

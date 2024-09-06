@@ -21,6 +21,7 @@ apt-get install -y software-properties-common curl git unzip zip supervisor ngin
   php8.3-pgsql \
   php8.3-sqlite3 \
   php8.3-xml \
+  php8.3-zip \
   php-memcached
 
 sed -i "s/www-data/vagrant/g" /etc/nginx/nginx.conf;

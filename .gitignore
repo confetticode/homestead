@@ -1,6 +1,2 @@
-*
-!.gitignore
-!LICENSE.md
-!provision.sh
-!README.md
-!Vagrantfile
+.idea/
+.vagrant/
